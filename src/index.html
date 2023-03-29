@@ -7,13 +7,17 @@
     <title>Homework 11</title>
   </head>
   <body>
-    <form class="search-form js-search-form">
-      <input type="text" id="search-box" />
-      <button type="submit" class="button"></button>
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit" class="btn">
+        <img src="./images/search-svgrepo-com.svg" alt="" width="15" />
+      </button>
     </form>
-
-    <ul class="country-list"></ul>
-    <div class="country-info"></div>
 
     <script src="index.js" type="module"></script>
   </body>

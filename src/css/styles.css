@@ -12,17 +12,27 @@ body {
   line-height: 1.5;
 }
 
-#search-box {
+.search-form {
+  display: flex;
   font: inherit;
   padding: 8px;
-  min-width: 340px;
-  margin: auto;
+
+  justify-content: center;
 }
 
-.button{
-    
+.btn {
+  padding: 10px;
+  margin-left: -3px;
+
+  background-color: lightgray;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 250ms linear;
 }
 
-.country-list {
-  list-style: none;
+.btn:hover,
+.btn:focus {
+  background-color: darkgray;
 }
+

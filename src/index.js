@@ -1,3 +1,7 @@
 import './css/styles.css';
-import axios from 'axios';
+import { FetchImages } from './fetchImages';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+const formEl = document.querySelector('#search-form');
+
+

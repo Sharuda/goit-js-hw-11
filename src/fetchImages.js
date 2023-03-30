@@ -37,10 +37,6 @@ export class PixabayApi {
     this.page = 1;
   }
 
-//   resetEndOfHits() {
-//     this.endOfHits = false;
-//   }
-
   get query() {
     return this.searchQuery;
   }

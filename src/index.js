@@ -16,7 +16,7 @@ function handleSearchImages(event) {
 
   containerEl.innerHTML = '';
   pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
-  newsApiService.resetPage();
+//   pixabayApi.resetPage();
 
   if (pixabayApi.query === '') {
     return;

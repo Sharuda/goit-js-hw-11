@@ -7,37 +7,62 @@ const containerEl = document.querySelector('.gallery');
 
 const pixabayApi = new PixabayApi();
 
+let isShown = 0;
+
 formEl.addEventListener('submit', handleSearchImages);
 
 function handleSearchImages(event) {
   event.preventDefault();
 
-  const searchQuery = event.currentTarget.value;
-  pixabayApi.query = searchQuery;
-  pixabayApi.page = 1;
+  containerEl.innerHTML = '';
+  pixabayApi.query = e.currentTarget.elements.searchQuery.value.trim();
+  // newsApiService.resetPage();
 
-  pixabayApi
-    .fetchImages()
-    .then(({ data }) => {
-      if (!data.results.length) {
-        Notify.failure(
-          '"Sorry, there are no images matching your search query. Please try again."'
-        );
-        return;
-      }
+  if (pixabayApi.query === '') {
+    Notify.warning('Please, fill the main field');
+    return;
+  }
 
-      containerEl.innerHTML = createGalleryImages(data.results);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  isShown = 0;
+  fetchGallery();
+  onRenderGallery(hits);
+}
+
+async function fetchGallery() {
+  //   refs.loadMoreBtn.classList.add('is-hidden');
+
+  const r = await pixabayApi.fetchGallery();
+  const { hits, total } = r;
+  isShown += hits.length;
+
+  if (!hits.length) {
+    Notify.failure(
+      `Sorry, there are no images matching your search query. Please try again.`
+    );
+    // refs.loadMoreBtn.classList.add('is-hidden');
+    return;
+  }
+
+  createGalleryImages(hits);
+  isShown += hits.length;
 }
 
 function createGalleryImages(array) {
   const markup = array
-    .map(({ likes, views, comments, downloads, tags, webformatURL }) => {
-      return `<div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+    .map(
+      ({
+        likes,
+        views,
+        comments,
+        downloads,
+        tags,
+        webformatURL,
+        largeImageURL,
+      }) => {
+        return `<div class="photo-card">
+  <a href="${largeImageURL}">
+      <img class="photo-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+    </a>
   <div class="info">
     <p class="info-item">
       <b>Likes: ${likes}</b>
@@ -53,8 +78,60 @@ function createGalleryImages(array) {
     </p>
   </div>
 </div>`;
-    })
+      }
+    )
     .join('');
 
   containerEl.insertAdjacentHTML('beforeend', markup);
 }
+// -----
+
+// function onSearch(e) {
+//   e.preventDefault();
+
+//   refs.galleryContainer.innerHTML = '';
+//   newsApiService.query = e.currentTarget.elements.searchQuery.value.trim();
+//   newsApiService.resetPage();
+
+//   if (newsApiService.query === '') {
+//     Notify.warning('Please, fill the main field');
+//     return;
+//   }
+
+//   isShown = 0;
+//   fetchGallery();
+//   onRenderGallery(hits);
+// }
+
+// function onLoadMore() {
+//   newsApiService.incrementPage();
+//   fetchGallery();
+// }
+
+// async function fetchGallery() {
+//   refs.loadMoreBtn.classList.add('is-hidden');
+
+//   const r = await newsApiService.fetchGallery();
+//   const { hits, total } = r;
+//   isShown += hits.length;
+
+//   if (!hits.length) {
+//     Notify.failure(
+//       `Sorry, there are no images matching your search query. Please try again.`
+//     );
+//     refs.loadMoreBtn.classList.add('is-hidden');
+//     return;
+//   }
+
+//   onRenderGallery(hits);
+//   isShown += hits.length;
+
+//   if (isShown < total) {
+//     Notify.success(`Hooray! We found ${total} images !!!`);
+//     refs.loadMoreBtn.classList.remove('is-hidden');
+//   }
+
+//   if (isShown >= total) {
+//     Notify.info("We're sorry, but you've reached the end of search results.");
+//   }
+// }

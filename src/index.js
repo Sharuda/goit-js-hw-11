@@ -7,7 +7,7 @@ const containerEl = document.querySelector('.gallery');
 
 const pixabayApi = new PixabayApi();
 
-let isShown = 0;
+// let isShown = 0;
 
 formEl.addEventListener('submit', handleSearchImages);
 
@@ -16,7 +16,7 @@ function handleSearchImages(event) {
 
   containerEl.innerHTML = '';
   pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
-//   pixabayApi.resetPage();
+  //   pixabayApi.resetPage();
 
   if (pixabayApi.query === '') {
     return;
@@ -29,7 +29,7 @@ function handleSearchImages(event) {
 
 async function fetchGallery() {
   const dataImage = await pixabayApi.fetchGallery();
-  const { hits } = dataImage;
+  const { hits, total } = dataImage;
   isShown += hits.length;
 
   if (!hits.length) {
@@ -41,7 +41,7 @@ async function fetchGallery() {
   }
 
   createGalleryImages(hits);
-  isShown += hits.length;
+  //   isShown += hits.length;
 }
 
 function createGalleryImages(array) {

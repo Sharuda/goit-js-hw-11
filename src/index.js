@@ -1,5 +1,5 @@
 import './css/styles.css';
-import { PixabayApi } from './fetchImages';
+import PixabayApi from './fetchImages';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const formEl = document.querySelector('#search-form');

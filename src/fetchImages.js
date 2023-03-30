@@ -4,6 +4,7 @@ export class PixabayApi {
   constructor() {
     this.searchQuery = null;
     this.page = 1;
+    this.perPage = 40;
   }
   async fetchGallery() {
     const params = {
@@ -16,6 +17,7 @@ export class PixabayApi {
         orientation: 'horizontal',
         safesearch: true,
         page: `${this.page}`,
+        per_page: `${this.per_page}`,
       },
     };
     try {

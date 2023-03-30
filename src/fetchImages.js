@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default class PixabayApi {
+export class PixabayApi {
   constructor() {
     this.searchQuery = null;
     this.page = 1;

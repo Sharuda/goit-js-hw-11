@@ -4,25 +4,24 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const formEl = document.querySelector('#search-form');
 const containerEl = document.querySelector('.gallery');
+const loadMoreBtnEl = document.querySelector('.load-more');
 
 const pixabayApi = new PixabayApi();
 
-// let isShown = 0;
-
 formEl.addEventListener('submit', handleSearchImages);
+loadMoreBtnEl.addEventListener('click', handleClickBtnLoadMore);
 
 function handleSearchImages(event) {
   event.preventDefault();
 
   containerEl.innerHTML = '';
   pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
-  //   pixabayApi.resetPage();
+  pixabayApi.resetPage();
 
   if (pixabayApi.query === '') {
     return;
   }
 
-  isShown = 0;
   fetchGallery();
   createGalleryImages(hits);
 }
@@ -30,7 +29,6 @@ function handleSearchImages(event) {
 async function fetchGallery() {
   const dataImage = await pixabayApi.fetchGallery();
   const { hits, total } = dataImage;
-  isShown += hits.length;
 
   if (!hits.length) {
     Notify.failure(
@@ -40,8 +38,13 @@ async function fetchGallery() {
     return;
   }
 
+  loadMoreBtnEl.classList.remove('is-hidden');
   createGalleryImages(hits);
-  //   isShown += hits.length;
+}
+
+function handleClickBtnLoadMore() {
+  pixabayApi.incrementPage();
+  fetchGallery();
 }
 
 function createGalleryImages(array) {

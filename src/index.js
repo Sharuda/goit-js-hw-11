@@ -29,7 +29,7 @@ function handleSearchImages(event) {
   pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
   pixabayApi.resetPage();
 
-  isShown = 0;
+  isShownImages = 0;
 
   fetchGallery();
   createGalleryImages(hits);

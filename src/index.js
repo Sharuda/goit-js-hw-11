@@ -29,6 +29,11 @@ function handleSearchImages(event) {
   pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
   pixabayApi.resetPage();
 
+  if (!pixabayApi.query) {
+    Notify.warning('Please, fill field');
+    return;
+  }
+
   isShownImages = 0;
 
   fetchGallery();

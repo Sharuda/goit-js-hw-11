@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class PixabayApi {
   constructor() {
-    this.searchQuery = null;
+    this.searchQuery = '';
     this.page = 1;
     this.perPage = 40;
   }

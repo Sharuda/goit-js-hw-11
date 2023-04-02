@@ -22,14 +22,15 @@ loadMoreBtnEl.addEventListener('click', handleClickBtnLoadMore);
 
 function handleSearchImages(event) {
   event.preventDefault();
-  const { hits } = pixabayApi.fetchGallery();
 
-  containerEl.innerHTML = '';
+  const {
+    elements: { searchQuery },
+  } = event.target;
 
-  pixabayApi.query = event.currentTarget.elements.searchQuery.value.trim();
-  pixabayApi.resetPage();
+  pixabayApi.query = searchQuery.value.trim().toLowerCase();
 
   if (!pixabayApi.query) {
+    pixabayApi.resetPage();
     Notify.warning('Please, fill field');
     return;
   }

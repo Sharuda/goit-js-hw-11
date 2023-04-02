@@ -9,13 +9,13 @@ const formEl = document.querySelector('#search-form');
 const containerEl = document.querySelector('.gallery');
 const loadMoreBtnEl = document.querySelector('.load-more');
 
+const pixabayApi = new PixabayApi();
+
 const lightboxGallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
 let isShownImages = 0;
-
-const pixabayApi = new PixabayApi();
 
 formEl.addEventListener('submit', handleSearchImages);
 loadMoreBtnEl.addEventListener('click', handleClickBtnLoadMore);
@@ -38,6 +38,7 @@ function handleSearchImages(event) {
   isShownImages = 0;
 
   fetchGallery();
+
   createGalleryImages(hits);
 }
 

@@ -27,10 +27,12 @@ function handleSearchImages(event) {
     elements: { searchQuery },
   } = event.target;
 
+  containerEl.innerHTML = '';
   pixabayApi.query = searchQuery.value.trim().toLowerCase();
 
+  pixabayApi.resetPage();
+
   if (!pixabayApi.query) {
-    pixabayApi.resetPage();
     Notify.warning('Please, fill field');
     return;
   }
